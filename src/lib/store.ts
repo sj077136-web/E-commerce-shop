@@ -1,55 +1,43 @@
 import { create } from 'zustand'
 
 export type View = 
-  | 'home' 
-  | 'product' 
-  | 'cart' 
-  | 'checkout' 
+  | 'feed' 
+  | 'profile' 
   | 'login' 
   | 'register' 
-  | 'orders' 
-  | 'profile'
+  | 'search'
+  | 'edit-profile'
+
+interface User {
+  id: string
+  email: string
+  name: string
+  username: string
+  avatar: string
+  bio: string
+}
 
 interface AppState {
-  // Navigation
   currentView: View
-  selectedProductId: string | null
-  
-  // User
-  user: { id: string; email: string; name: string } | null
-  
-  // Cart (client-side cache for quick access)
-  cartItemCount: number
-  
-  // Actions
-  navigate: (view: View, productId?: string | null) => void
-  setUser: (user: { id: string; email: string; name: string } | null) => void
-  setCartItemCount: (count: number) => void
-  incrementCartItemCount: (by?: number) => void
-  decrementCartItemCount: (by?: number) => void
+  viewingUserId: string | null
+  user: User | null
+
+  navigate: (view: View, userId?: string | null) => void
+  setUser: (user: User | null) => void
   logout: () => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  currentView: 'home',
-  selectedProductId: null,
+  currentView: 'feed',
+  viewingUserId: null,
   user: null,
-  cartItemCount: 0,
 
-  navigate: (view, productId = null) => {
-    set({ currentView: view, selectedProductId: productId })
+  navigate: (view, userId = null) => {
+    set({ currentView: view, viewingUserId: userId })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   },
 
   setUser: (user) => set({ user }),
 
-  setCartItemCount: (count) => set({ cartItemCount: count }),
-
-  incrementCartItemCount: (by = 1) => 
-    set((state) => ({ cartItemCount: state.cartItemCount + by })),
-
-  decrementCartItemCount: (by = 1) => 
-    set((state) => ({ cartItemCount: Math.max(0, state.cartItemCount - by) })),
-
-  logout: () => set({ user: null, cartItemCount: 0 }),
+  logout: () => set({ user: null }),
 }))

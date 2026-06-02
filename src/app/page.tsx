@@ -1,37 +1,29 @@
 'use client'
 
 import { useAppStore } from '@/lib/store'
-import Header from '@/components/ecommerce/Header'
-import Footer from '@/components/ecommerce/Footer'
-import ProductGrid from '@/components/ecommerce/ProductGrid'
-import ProductDetail from '@/components/ecommerce/ProductDetail'
-import Cart from '@/components/ecommerce/Cart'
-import Checkout from '@/components/ecommerce/Checkout'
-import AuthForm from '@/components/ecommerce/AuthForm'
-import OrderHistory from '@/components/ecommerce/OrderHistory'
+import Header from '@/components/social/Header'
+import Footer from '@/components/social/Footer'
+import Feed from '@/components/social/Feed'
+import Profile from '@/components/social/Profile'
+import AuthForm from '@/components/social/AuthForm'
+import SearchUsers from '@/components/social/SearchUsers'
 
 export default function Home() {
-  const { currentView, selectedProductId } = useAppStore()
+  const { currentView, viewingUserId } = useAppStore()
 
   const renderView = () => {
     switch (currentView) {
-      case 'product':
-        return selectedProductId ? (
-          <ProductDetail productId={selectedProductId} />
-        ) : null
-      case 'cart':
-        return <Cart />
-      case 'checkout':
-        return <Checkout />
+      case 'profile':
+        return viewingUserId ? <Profile userId={viewingUserId} /> : null
       case 'login':
         return <AuthForm mode="login" />
       case 'register':
         return <AuthForm mode="register" />
-      case 'orders':
-        return <OrderHistory />
-      case 'home':
+      case 'search':
+        return <SearchUsers />
+      case 'feed':
       default:
-        return <ProductGrid />
+        return <Feed />
     }
   }
 

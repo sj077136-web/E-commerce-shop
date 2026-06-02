@@ -14,9 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeAlpha Shop - Premium E-Commerce Store",
-  description: "Discover amazing products at CodeAlpha Shop. Electronics, fashion, lifestyle, and more. Quality products at unbeatable prices.",
-  keywords: ["ecommerce", "online shopping", "electronics", "fashion", "CodeAlpha"],
+  title: "Connecta - Social Media Platform",
+  description: "A mini social media platform with user profiles, posts, comments, likes, and follow system. Built with Next.js and Prisma.",
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
